@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { useAuthStore } from "../zustand/authStore";
 import { Navigate } from "react-router-dom";
 
