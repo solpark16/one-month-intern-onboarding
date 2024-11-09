@@ -20,12 +20,6 @@ function GetUserProvider({ children }: PropsWithChildren) {
     });
   }, []);
 
-  // const handleLogout = () => {
-  //   clearUser;
-  //   navigate("/signin");
-  //   localStorage.clear();
-  // };
-
   return <>{children}</>;
 }
 

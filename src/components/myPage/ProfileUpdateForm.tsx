@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../zustand/authStore";
 import { updateProfile } from "../../api/api.auth";
+import InputField from "../common/InputField";
 
 function ProfileUpdateForm() {
   const [newNickname, setNewNickname] = useState("");
@@ -48,23 +49,41 @@ function ProfileUpdateForm() {
   };
 
   return (
-    <form onSubmit={handleProfileChange}>
-      {user && <img src={user.avatar} className="w-[200px] h-[200px]" />}
-      <div>
-        <label>닉네임</label>
-        <input
-          type="text"
-          value={newNickname}
-          onChange={(e) => {
-            setNewNickname(e.target.value);
-          }}
+    <form
+      onSubmit={handleProfileChange}
+      className="flex flex-col items-center gap-3"
+    >
+      {user && (
+        <img
+          src={user.avatar}
+          className="w-[200px] h-[200px] object-cover rounded-full"
         />
-      </div>
-      <div>
-        <label>아바타 이미지</label>
-        <input type="file" onChange={handleAvatarChange} />
-      </div>
-      <button type="submit">프로필 수정</button>
+      )}
+      <InputField
+        title="닉네임"
+        value={newNickname}
+        type="text"
+        setState={setNewNickname}
+        placeholder="닉네임을 입력하세요."
+      />
+      <label
+        htmlFor="profileImg"
+        className="w-full bg-green-500 rounded text-white p-2 text-center cursor-pointer"
+      >
+        이미지 변경
+      </label>
+      <input
+        id="profileImg"
+        type="file"
+        onChange={handleAvatarChange}
+        className="hidden"
+      />
+      <button
+        type="submit"
+        className="w-full bg-blue-400 rounded text-white p-2"
+      >
+        프로필 수정
+      </button>
     </form>
   );
 }

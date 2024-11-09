@@ -17,7 +17,7 @@ export const register = async ({
     });
     return response.data;
   } catch (error) {
-    // alert(error?.response?.data?.message);
+    throw error;
   }
 };
 

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { register } from "../../../api/api.auth";
 import InputField from "../../common/InputField";
+import { useMutation } from "@tanstack/react-query";
 
 function SignUpForm() {
   const [id, setId] = useState("");
@@ -9,6 +10,17 @@ function SignUpForm() {
   const [nickname, setNickname] = useState("");
 
   const navigate = useNavigate();
+
+  const mutation = useMutation({
+    mutationFn: register,
+    onSuccess: () => {
+      alert("회원가입이 완료되었습니다.");
+      navigate("/login");
+    },
+    onError: () => {
+      alert("회원가입 중 오류가 발생했습니다."); // 오류 메시지 표시
+    },
+  });
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,12 +41,15 @@ function SignUpForm() {
       alert("닉네임은 1~10 글자로 입력해주세요.");
       return;
     }
-    const response = await register({ id, password, nickname });
-    console.log(response);
-    if (response.success) {
-      alert("회원가입이 완료되었습니다.");
-      navigate("/login");
-    }
+
+    mutation.mutate({ id, password, nickname });
+
+    // const response = await register({ id, password, nickname });
+    // console.log(response);
+    // if (response.success) {
+    //   alert("회원가입이 완료되었습니다.");
+    //   navigate("/login");
+    // }
   };
   return (
     <form onSubmit={handleSignUp} className="flex flex-col gap-3">
