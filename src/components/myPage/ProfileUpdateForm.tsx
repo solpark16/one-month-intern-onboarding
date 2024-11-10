@@ -37,7 +37,7 @@ function ProfileUpdateForm() {
   });
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null; // 안전하게 파일을 처리
+    const file = e.target.files ? e.target.files[0] : null;
     setNewAvatar(file);
   };
 

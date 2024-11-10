@@ -1,18 +1,20 @@
 import React from "react";
 
+interface InputFieldProps {
+  title: string;
+  value: string;
+  type: string;
+  setState: React.Dispatch<React.SetStateAction<string>>;
+  placeholder: string;
+}
+
 function InputField({
   title,
   value,
   type,
   setState,
   placeholder,
-}: {
-  title: string;
-  value: string;
-  type: string;
-  setState: React.Dispatch<React.SetStateAction<string>>;
-  placeholder: string;
-}) {
+}: InputFieldProps) {
   return (
     <div className="flex gap-2 justify-center w-full items-center">
       <label className="w-[60px] flex-shrink-0">{title}</label>

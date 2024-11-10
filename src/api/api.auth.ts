@@ -17,7 +17,7 @@ export const register = async ({
     });
     return response.data;
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 
@@ -36,7 +36,7 @@ export const login = async ({
     localStorage.setItem("accessToken", response.data.accessToken);
     return response.data;
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 };
 
@@ -69,7 +69,7 @@ export const updateProfile = async (formData: FormData) => {
       });
       return data;
     } catch (error) {
-      throw error;
+      console.log(error);
     }
   }
 };

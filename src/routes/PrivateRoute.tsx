@@ -2,11 +2,11 @@ import { ReactNode } from "react";
 import { useAuthStore } from "../zustand/authStore";
 import { Navigate } from "react-router-dom";
 
-interface PrivateRouteProps {
+interface PrivateRoute {
   children: ReactNode;
 }
 
-function PrivateRoute({ children }: PrivateRouteProps) {
+function PrivateRoute({ children }: PrivateRoute) {
   const user = useAuthStore((state) => state.user);
 
   if (!user) {
