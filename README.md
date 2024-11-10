@@ -1,50 +1,24 @@
-# React + TypeScript + Vite
+# 한달인턴 프론트엔드 개발 온보딩 과제 (React)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+기본적인 JWT 기반의 인증/인가가 구현되어있고 프로필 수정이 가능한 간단한 웹 사이트
 
-Currently, two official plugins are available:
+## 페이지 구성
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 메인 페이지
+  - JSON Placeholder 테스트
+  - 마이 페이지 이동
+  - 로그아웃 기능
+  - 로그인 여부 상관 없이 접속 가능
+- 로그인 페이지
+  - 로그인 시 접속 불가
+- 회원가입 페이지
+  - 로그인 시 접속 불가
+- 마이 페이지
+  - 프로필 변경 가능
+  - 로그인 시에만 접속 가능
 
-## Expanding the ESLint configuration
+## Blog 작성
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+[JWT 기술분석 : access, refresh token의 개념과 관리전략](https://velog.io/@solpark16/access-refresh-token)
+[유닛 테스트 기술분석](https://velog.io/@solpark16/unit-test)
+[기술분석 : 프론트엔드 에러 모니터링, 로그 데이터 수집의 필요성](https://velog.io/@solpark16/frontend-error-monitoring)
