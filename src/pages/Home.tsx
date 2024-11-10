@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../zustand/authStore";
 import Box from "../components/common/Box";
 import Title from "../components/common/Title";
-import TodoList from "../components/home/todoList";
+import TodoList from "../components/home/TodoList";
 
 function Home() {
   const user = useAuthStore((state) => state.user);
