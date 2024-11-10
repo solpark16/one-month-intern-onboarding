@@ -1,4 +1,5 @@
 import authApi from "../axios/authApi";
+import * as Sentry from "@sentry/react";
 
 export const register = async ({
   id,
@@ -17,6 +18,7 @@ export const register = async ({
     });
     return response.data;
   } catch (error) {
+    Sentry.captureException(error);
     console.log(error);
   }
 };
@@ -36,6 +38,7 @@ export const login = async ({
     localStorage.setItem("accessToken", response.data.accessToken);
     return response.data;
   } catch (error) {
+    Sentry.captureException(error);
     console.log(error);
   }
 };
@@ -53,6 +56,7 @@ export const getUserInfo = async () => {
     } catch (error) {
       alert("액세스 토큰이 만료되었습니다.");
       localStorage.clear();
+      Sentry.captureException(error);
     }
   }
 };
@@ -69,6 +73,7 @@ export const updateProfile = async (formData: FormData) => {
       });
       return data;
     } catch (error) {
+      Sentry.captureException(error);
       console.log(error);
     }
   }
