@@ -8,6 +8,7 @@ import { useMutation } from "@tanstack/react-query";
 function ProfileUpdateForm() {
   const [newNickname, setNewNickname] = useState("");
   const [newAvatar, setNewAvatar] = useState<File | null>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user);
   const setUser = useAuthStore((state) => state.setUser);
@@ -15,6 +16,7 @@ function ProfileUpdateForm() {
   useEffect(() => {
     if (user) {
       setNewNickname(user.nickname);
+      setAvatarPreview(user.avatar);
     } else {
     }
   }, [user]);
@@ -38,7 +40,10 @@ function ProfileUpdateForm() {
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
-    setNewAvatar(file);
+    if (file) {
+      setNewAvatar(file);
+      setAvatarPreview(URL.createObjectURL(file));
+    }
   };
 
   const handleProfileChange = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -62,9 +67,10 @@ function ProfileUpdateForm() {
       onSubmit={handleProfileChange}
       className="flex flex-col items-center gap-3"
     >
-      {user && (
+      {avatarPreview && (
         <img
-          src={user.avatar}
+          // src={user.avatar}
+          src={avatarPreview}
           className="w-[200px] h-[200px] object-cover rounded-full bg-gray-300"
         />
       )}
