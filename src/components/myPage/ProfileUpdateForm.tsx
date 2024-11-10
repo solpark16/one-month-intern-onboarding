@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../zustand/authStore";
 import { updateProfile } from "../../api/api.auth";
 import InputField from "../common/InputField";
+import { useMutation } from "@tanstack/react-query";
 
 function ProfileUpdateForm() {
   const [newNickname, setNewNickname] = useState("");
@@ -17,6 +18,23 @@ function ProfileUpdateForm() {
     } else {
     }
   }, [user]);
+
+  const mutation = useMutation({
+    mutationFn: updateProfile,
+    onSuccess: (data) => {
+      if (user) {
+        setUser(
+          data.avatar
+            ? { ...user, nickname: data.nickname, avatar: data.avatar }
+            : { ...user, nickname: data.nickname }
+        );
+        navigate("/");
+      }
+    },
+    onError: () => {
+      alert("프로필 수정에 실패했습니다.");
+    },
+  });
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null; // 안전하게 파일을 처리
@@ -36,16 +54,7 @@ function ProfileUpdateForm() {
     }
     formData.append("nickname", newNickname);
 
-    const response = await updateProfile(formData);
-
-    if (response.success && user) {
-      setUser(
-        response.avatar
-          ? { ...user, nickname: response.nickname, avatar: response.avatar }
-          : { ...user, nickname: response.nickname }
-      );
-      navigate("/");
-    }
+    mutation.mutate(formData);
   };
 
   return (
@@ -56,7 +65,7 @@ function ProfileUpdateForm() {
       {user && (
         <img
           src={user.avatar}
-          className="w-[200px] h-[200px] object-cover rounded-full"
+          className="w-[200px] h-[200px] object-cover rounded-full bg-gray-300"
         />
       )}
       <InputField

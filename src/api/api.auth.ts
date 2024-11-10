@@ -36,7 +36,7 @@ export const login = async ({
     localStorage.setItem("accessToken", response.data.accessToken);
     return response.data;
   } catch (error) {
-    // alert(error?.response?.data?.message);
+    throw error;
   }
 };
 
@@ -69,7 +69,7 @@ export const updateProfile = async (formData: FormData) => {
       });
       return data;
     } catch (error) {
-      alert("프로필 수정을 실패했습니다.");
+      throw error;
     }
   }
 };

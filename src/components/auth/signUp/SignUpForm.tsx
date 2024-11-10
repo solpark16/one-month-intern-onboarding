@@ -18,7 +18,7 @@ function SignUpForm() {
       navigate("/login");
     },
     onError: () => {
-      alert("회원가입 중 오류가 발생했습니다."); // 오류 메시지 표시
+      alert("회원가입 중 오류가 발생했습니다.");
     },
   });
 
@@ -43,13 +43,6 @@ function SignUpForm() {
     }
 
     mutation.mutate({ id, password, nickname });
-
-    // const response = await register({ id, password, nickname });
-    // console.log(response);
-    // if (response.success) {
-    //   alert("회원가입이 완료되었습니다.");
-    //   navigate("/login");
-    // }
   };
   return (
     <form onSubmit={handleSignUp} className="flex flex-col gap-3">

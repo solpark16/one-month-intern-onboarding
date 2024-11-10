@@ -3,12 +3,26 @@ import { login } from "../../../api/api.auth";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../../../zustand/authStore";
 import InputField from "../../common/InputField";
+import { useMutation } from "@tanstack/react-query";
 
 function LogInForm() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const setUser = useAuthStore((state) => state.setUser);
+
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      const { userId, nickname, avatar } = data;
+      setUser({ userId, nickname, avatar });
+      alert("로그인이 완료되었습니다.");
+      navigate("/");
+    },
+    onError: () => {
+      alert("로그인 중 오류가 발생했습니다.");
+    },
+  });
 
   const handleLogIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,10 +31,8 @@ function LogInForm() {
       alert("아이디, 비밀번호를 모두 입력해주세요.");
       return;
     }
-    const { userId, nickname, avatar } = await login({ id, password });
-    setUser({ userId, nickname, avatar });
-    alert("로그인 되었습니다.");
-    navigate("/");
+
+    mutation.mutate({ id, password });
   };
   return (
     <form onSubmit={handleLogIn} className="flex flex-col gap-3">
